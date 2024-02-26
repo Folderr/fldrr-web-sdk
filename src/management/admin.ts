@@ -18,6 +18,7 @@ export function setup(url: string) {
  * @returns {constants.GenericFetchReturn<string | undefiend>}
  */
 export async function promoteUserToAdmin(id: string): Promise<constants.GenericFetchReturn<string | undefined>> {
+    if (!id) throw new Error('Missing parameter "id"')
     const resOut = z.object({
         message: z.string(),
         code: z.number(),
@@ -28,12 +29,23 @@ export async function promoteUserToAdmin(id: string): Promise<constants.GenericF
 /**
  * Demotes an admin to a normal user
  * @param {string} id The ID of the admin to promote 
+ * @param {string} reason The reason this admin is being demoted.
  * @returns 
  */
-export async function demoteAdmin(id: string): Promise<constants.GenericFetchReturn<string | undefined>> {
+export async function demoteAdmin(id: string, reason: string): Promise<constants.GenericFetchReturn<string | undefined>> {
+    // For safety's sake, we're a library. If these don't exist, we'll error.
+    const missing = [];
+    if (!id) missing.push('id');
+    if (!reason) missing.push('reason');
+    if (missing.length > 0) throw new Error(`Missing parameters ${missing.join(', ')}`);
+
     const resOut = z.object({
         message: z.string(),
         code: z.number(),
     });
-    return await request<string, undefined>(`${constants.BASE_URL}admin/${id}`, 'DELETE', resOut);
+    return await request<string, undefined>(`${BASE_URL}${constants.BASE_URL}admin/${id}`, 'DELETE', resOut, {
+        body: {
+            reason: z.string().parse(reason),
+        }
+    });
 }
