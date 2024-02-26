@@ -1,0 +1,25 @@
+{
+  "name": "fldrr-web-sdk",
+  "version": "1.0.0",
+  "description": "A lieghtweight TS Web SDK for Folderr",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Folderr/fldrr-web-sdk.git"
+  },
+  "author": "Folderr",
+  "license": "AGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/Folderr/fldrr-web-sdk/issues"
+  },
+  "homepage": "https://github.com/Folderr/fldrr-web-sdk#readme",
+  "dependencies": {
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}
