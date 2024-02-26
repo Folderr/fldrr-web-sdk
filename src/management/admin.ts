@@ -3,6 +3,14 @@ import * as constants from '../helpers/types-and-consts';
 import * as localConstants from './consts';
 import {request} from '../helpers/request-handlers';
 
+let BASE_URL = '';
+
+export function setup(url: string) {
+    if (url === '') return;
+    // let's just check if this is a url
+    new URL(url);
+    BASE_URL = url;
+}
 
 /**
  * Promotes a user to admin
@@ -14,7 +22,7 @@ export async function promoteUserToAdmin(id: string): Promise<constants.GenericF
         message: z.string(),
         code: z.number(),
     });
-    return await request<string, undefined>(`${constants.BASE_URL}admin/${id}`, 'POST', resOut);
+    return await request<string, undefined>(`${BASE_URL}${constants.BASE_URL}admin/${id}`, 'POST', resOut);
 }
 
 /**
