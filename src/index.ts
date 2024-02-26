@@ -3,7 +3,7 @@ export * from './helpers/request-handlers';
 
 import * as Manage from './management/index';
 
-function setup(url: string): { Manage: typeof Manage } {
+export function setup(url: string): { Manage: typeof Manage } {
     if (url = '') {
         return { Manage: Manage }
     }
