@@ -24,16 +24,6 @@ function checkAuthenticationError(
 }
 
 export function genericCatch<T>(error: unknown): GenericFetchReturn<T> {
-	if (
-		error instanceof Error &&
-		error.message === "Failed to fetch"
-	) {
-		console.log(
-			`DEBUG Error Name: ${error.name}\nDEBUG Error: ${error.message}`
-		);
-		console.log(error);
-	}
-
 	if (error instanceof Error) {
 		if (error.message.includes("Authorization failed")) {
 			return {
@@ -42,9 +32,13 @@ export function genericCatch<T>(error: unknown): GenericFetchReturn<T> {
 				output: undefined,
 			};
 		}
-	}
 
-	console.log(error);
+        return {
+            error,
+            success: false,
+            output: undefined,
+        };
+	}
 
 	return {
 		error: "An unknown error occurred",
