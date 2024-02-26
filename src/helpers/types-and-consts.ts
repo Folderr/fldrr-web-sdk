@@ -7,6 +7,8 @@ export const httpCodes = {
 	ok: 200,
 };
 
+export const BASE_URL = '/api/';
+
 export type BadResponseCodes = {
 	notAccepted?: string;
 	notFound?: string;

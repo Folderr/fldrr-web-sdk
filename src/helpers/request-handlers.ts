@@ -1,18 +1,31 @@
-import {z} from 'zod';
+import {ZodSchema, z} from 'zod';
 import { BadResponseCodes, GenericFetchReturn } from './types-and-consts';
 import { badResponseHandler, genericCatch } from './handlers';
 
+/**
+ * 
+ * @param {string} url The url to query
+ * @param {"POST" | "PATCH" | "PUT" | "GET" | "DELETE"} method What method you intend on using for this request. 
+ * @param {ZodSchema} output The Zod schema output you expect
+ * @param [options] Optional things
+ * @param {ZodSchema} [options.body] A JSON body to supply to the request. Set's content-type header to application/json.
+ * @param {Record<string, string>} [options.header] any headers you want to supply
+ * @param {BadResponseCodes} [options.badResCodes] An object of HTTP error codes and their associated responses.
+ * @param {Record<number, string>} [options.alts] An object of numbers and their pre-programmed response. These numbers are listed in Folderr's source code.
+ * @param {number[]} [options.okCodes] A set of htp codes to be considered "OK"
+ * @returns {Promise<GenericFetchReturn<any>>}
+ */
 export async function request<
-        TResponseSchema extends z.Schema,
-        TBodySchema extends z.Schema<{ code: number; message: TResponseSchema }>,
+        TResponse,
         TBody
-    >(url: string, method: "POST" | "PATCH" | "PUT" | "GET" | "DELETE", output: TBodySchema, options?: {
+    >(url: string, method: "POST" | "PATCH" | "PUT" | "GET" | "DELETE", output: z.Schema<{ code: number; message: TResponse }>, options?: {
         body?: Record<string, TBody | string>,
         headers?: Record<string, string>,
         badResCodes?: BadResponseCodes,
         alts?: Record<number, string>,
+        okCodes?: number[];
     }
-): Promise<GenericFetchReturn<TResponseSchema | string | undefined>> {
+): Promise<GenericFetchReturn<TResponse | string | undefined>> {
     // verify the shape of the response schema. Must match "{ code: number, message: unknown }"
     let headers: Record<string, string> | undefined = options?.headers;
 
