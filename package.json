@@ -2,9 +2,11 @@
   "name": "fldrr-web-sdk",
   "version": "1.0.0",
   "description": "A lieghtweight TS Web SDK for Folderr",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "src/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
