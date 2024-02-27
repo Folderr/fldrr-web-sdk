@@ -49,7 +49,7 @@ export async function request<
             return check;
         }
 
-        const json = output.parse(await response.json);
+        const json = output.parse(await response.json());
         if (options?.alts && Object.keys(options.alts).includes(String(json.code))) {
             return {
                 success: true,
