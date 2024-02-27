@@ -1,1 +1,1 @@
-export * as Admin from './admin';
+export * as Admin from "./admin";

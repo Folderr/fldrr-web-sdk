@@ -1,19 +1,21 @@
-export * from './helpers/types-and-consts';
-export * from './helpers/request-handlers';
+export * from "./helpers/types-and-consts";
+export * from "./helpers/request-handlers";
 
-import * as Manage from './management/index';
+import * as Manage from "./management/index";
 
 export function setup(url?: string): { Manage: typeof Manage } {
-    // we'll just assume this is relative
-    if (url === '' || !url) {
-        return { Manage: Manage }
-    }
+  // We'll just assume this is relative
+  if (url === "" || !url) {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    return { Manage };
+  }
 
-    try {
-        new URL(url);
-        Manage.Admin.setup(url)
-        return { Manage: Manage };
-    } catch (error) {
-        throw new Error('The URL you provided is invalid.');
-    }
+  try {
+    const _ = new URL(url);
+    Manage.Admin.setup(url);
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    return { Manage };
+  } catch (error) {
+    throw Error("The URL you provided is invalid.");
+  }
 }
