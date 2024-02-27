@@ -4,7 +4,7 @@ export * from './helpers/request-handlers';
 import * as Manage from './management/index';
 
 export function setup(url: string): { Manage: typeof Manage } {
-    if (url = '') {
+    if (url === '') {
         return { Manage: Manage }
     }
 
