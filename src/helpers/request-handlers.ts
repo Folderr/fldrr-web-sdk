@@ -50,7 +50,7 @@ export async function request<
         }
 
         const json = output.parse(await response.json());
-        if (options?.alts && Object.keys(options.alts).includes(String(json.code))) {
+        if (options?.alts && json.code in options.alts) {
             return {
                 success: true,
                 output: options.alts[json.code],
