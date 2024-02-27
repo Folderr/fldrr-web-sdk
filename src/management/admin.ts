@@ -9,7 +9,7 @@ export function setup(url: string) {
     if (url === '') return;
     // let's just check if this is a url
     new URL(url);
-    BASE_URL = url;
+    BASE_URL = url + localConstants.BASE_URL;
 }
 
 /**
@@ -23,7 +23,7 @@ export async function promoteUserToAdmin(id: string): Promise<constants.GenericF
         message: z.string(),
         code: z.number(),
     });
-    return await request<string, undefined>(`${BASE_URL}${constants.BASE_URL}admin/${id}`, 'POST', resOut);
+    return await request<string, undefined>(`${BASE_URL}/admin/${id}`, 'POST', resOut);
 }
 
 /**
@@ -43,7 +43,7 @@ export async function demoteAdmin(id: string, reason: string): Promise<constants
         message: z.string(),
         code: z.number(),
     });
-    return await request<string, undefined>(`${BASE_URL}${constants.BASE_URL}admin/${id}`, 'DELETE', resOut, {
+    return await request<string, undefined>(`${BASE_URL}/admin/${id}`, 'DELETE', resOut, {
         body: {
             reason: z.string().parse(reason),
         }
