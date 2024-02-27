@@ -3,7 +3,7 @@ import * as constants from '../helpers/types-and-consts';
 import * as localConstants from './consts';
 import {request} from '../helpers/request-handlers';
 
-let BASE_URL = '';
+let BASE_URL = '' + localConstants.BASE_URL;
 
 export function setup(url: string) {
     if (url === '') return;
