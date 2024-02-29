@@ -1,7 +1,7 @@
 import { ZodSchema, type z } from "zod";
 import {
-  type BadResponseCodes,
-  type GenericFetchReturn,
+	type BadResponseCodes,
+	type GenericFetchReturn,
 } from "./types-and-consts";
 import { badResponseHandler, genericCatch } from "./handlers";
 
@@ -19,61 +19,61 @@ import { badResponseHandler, genericCatch } from "./handlers";
  * @returns {Promise<GenericFetchReturn<any>>}
  */
 export async function request<Tresponse, Tbody>(
-  url: string,
-  method: "POST" | "PATCH" | "PUT" | "GET" | "DELETE",
-  output: z.Schema<{ code: number; message: Tresponse }>,
-  options?: {
-    body?: Record<string, Tbody | string>;
-    headers?: Record<string, string>;
-    badResCodes?: BadResponseCodes;
-    alts?: Record<number, string>;
-    okCodes?: number[];
-  },
+	url: string,
+	method: "POST" | "PATCH" | "PUT" | "GET" | "DELETE",
+	output: z.Schema<{ code: number; message: Tresponse }>,
+	options?: {
+		body?: Record<string, Tbody | string>;
+		headers?: Record<string, string>;
+		badResCodes?: BadResponseCodes;
+		alts?: Record<number, string>;
+		okCodes?: number[];
+	},
 ): Promise<GenericFetchReturn<Tresponse | string | undefined>> {
-  // Verify the shape of the response schema. Must match "{ code: number, message: unknown }"
-  let headers: Record<string, string> | undefined = options?.headers;
+	// Verify the shape of the response schema. Must match "{ code: number, message: unknown }"
+	let headers: Record<string, string> | undefined = options?.headers;
 
-  if (options?.body && typeof headers !== "undefined") {
-    headers["content-type"] = "application/json";
-  } else if (options?.body && typeof headers === "undefined") {
-    headers = { "content-type": "application/json" };
-  }
+	if (options?.body && typeof headers !== "undefined") {
+		headers["content-type"] = "application/json";
+	} else if (options?.body && typeof headers === "undefined") {
+		headers = { "content-type": "application/json" };
+	}
 
-  try {
-    const response = await fetch(url, {
-      headers,
-      body: options?.body && JSON.stringify(options?.body),
-      method,
-      credentials: "same-origin",
-    });
+	try {
+		const response = await fetch(url, {
+			headers,
+			body: options?.body && JSON.stringify(options?.body),
+			method,
+			credentials: "same-origin",
+		});
 
-    const check = await badResponseHandler(
-      response,
-      options?.badResCodes ?? {},
-    );
+		const check = await badResponseHandler(
+			response,
+			options?.badResCodes ?? {},
+		);
 
-    if (check) {
-      return check;
-    }
+		if (check) {
+			return check;
+		}
 
-    const json = output.parse(await response.json());
-    if (options?.alts && json.code in options.alts) {
-      return {
-        success: true,
-        output: options.alts[json.code],
-        error: undefined,
-        response,
-      };
-    }
+		const json = output.parse(await response.json());
+		if (options?.alts && json.code in options.alts) {
+			return {
+				success: true,
+				output: options.alts[json.code],
+				error: undefined,
+				response,
+			};
+		}
 
-    // Everything should in theory be good?
-    return {
-      success: true,
-      output: json.message,
-      error: undefined,
-      response,
-    };
-  } catch (error: unknown) {
-    return genericCatch<undefined>(error);
-  }
+		// Everything should in theory be good?
+		return {
+			success: true,
+			output: json.message,
+			error: undefined,
+			response,
+		};
+	} catch (error: unknown) {
+		return genericCatch<undefined>(error);
+	}
 }
