@@ -4,7 +4,7 @@ import * as localConstants from "./consts";
 import { request } from "../helpers/request-handlers";
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-let BASE_URL = String(localConstants.BASE_URL);
+let { BASE_URL } = localConstants;
 
 export function setup(url: string) {
   if (url === "") return;
