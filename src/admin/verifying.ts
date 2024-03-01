@@ -11,7 +11,7 @@ export type VerifyingUser = {
 	id: string;
 	username: string;
 	email: string;
-	createdAt: Date;
+	createdAt: number;
 };
 
 let { baseUrl } = consts;
@@ -33,7 +33,7 @@ export async function getVerfiyingUsers(): Promise<
 		id: z.string(),
 		username: z.string(),
 		email: z.string(),
-		createdAt: z.date(),
+		createdAt: z.number(),
 	});
 
 	const resOut = z.object({
