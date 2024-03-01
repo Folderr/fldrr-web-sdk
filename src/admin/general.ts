@@ -44,7 +44,7 @@ export async function getStats(): Promise<
 		code: z.number(),
 	});
 
-	return request(`${baseUrl}statistics`, "GET", resOut);
+	return request(`${baseUrl}/statistics`, "GET", resOut);
 }
 
 export async function getBans(): Promise<
@@ -62,5 +62,5 @@ export async function getBans(): Promise<
 		code: z.number(),
 	});
 
-	return request(`${baseUrl}bans`, "GET", resOut);
+	return request(`${baseUrl}/bans`, "GET", resOut);
 }

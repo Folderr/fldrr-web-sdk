@@ -65,7 +65,7 @@ export async function getUsers(): Promise<
 
 	// 1054: DB Entry/Entries Not Found
 
-	return request(`${baseUrl}users`, "GET", resOut, {
+	return request(`${baseUrl}/users`, "GET", resOut, {
 		alts: {
 			// eslint-disable-next-line @typescript-eslint/naming-convention
 			1054: "Users Not Found",
@@ -114,7 +114,7 @@ export async function warnUser(
 		code: z.number(),
 	});
 
-	return request(`${baseUrl}warn/${id}`, "POST", resOut, {
+	return request(`${baseUrl}/warn/${id}`, "POST", resOut, {
 		body: {
 			reason,
 		},
@@ -138,7 +138,7 @@ export async function banUser(
 		code: z.number(),
 	});
 
-	return request(`${baseUrl}ban/${id}`, "POST", resOut, {
+	return request(`${baseUrl}/ban/${id}`, "POST", resOut, {
 		body: {
 			reason,
 		},
@@ -170,7 +170,7 @@ export async function unbanEmail(
 		code: z.number(),
 	});
 
-	return request(`${baseUrl}ban/${id}`, "POST", resOut, {
+	return request(`${baseUrl}/ban/${id}`, "POST", resOut, {
 		body: {
 			reason,
 		},

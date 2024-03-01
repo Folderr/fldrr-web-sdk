@@ -42,7 +42,7 @@ export async function getVerfiyingUsers(): Promise<
 	});
 
 	return request<VerifyingUser[], undefined>(
-		`${baseUrl}verifying-users`,
+		`${baseUrl}/verifying-users`,
 		"GET",
 		resOut,
 	);
@@ -57,7 +57,7 @@ export async function denyAccount(
 		code: z.number(),
 	});
 
-	return request<string, string>(`${baseUrl}verify`, "DELETE", resOut, {
+	return request<string, string>(`${baseUrl}/verify`, "DELETE", resOut, {
 		body: {
 			id,
 		},
@@ -73,7 +73,7 @@ export async function acceptAccount(
 		code: z.number(),
 	});
 
-	return request<string, string>(`${baseUrl}verify`, "POST", resOut, {
+	return request<string, string>(`${baseUrl}/verify`, "POST", resOut, {
 		body: {
 			id,
 		},
