@@ -19,6 +19,7 @@ export function setup(url?: string): {
 		Manage.Admin.setup(url);
 		Admin.Verifying.setup(url);
 		Admin.User.setup(url);
+		Admin.General.setup(url);
 		// eslint-disable-next-line @typescript-eslint/naming-convention
 		return { Manage, Admin };
 	} catch (error) {

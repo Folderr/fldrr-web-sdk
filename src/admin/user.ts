@@ -28,12 +28,12 @@ export type User = {
 	username: string;
 	files: number;
 	links: number;
-	createdAt: Date;
+	createdAt: number;
 	cURLs: string[];
 	markedForDeletion: boolean;
 	admin: boolean;
 	owner: boolean;
-}
+};
 
 export type AdminUsersReturn = {
 	title: string;
@@ -45,7 +45,9 @@ export type AdminUsersReturn = {
 	createdAt: number;
 };
 
-export async function getUsers(): Promise<GenericFetchReturn<AdminUsersReturn | string | undefined>> {
+export async function getUsers(): Promise<
+	GenericFetchReturn<AdminUsersReturn | string | undefined>
+> {
 	const userSchema = z.object({
 		id: z.string(),
 		email: z.string(),
@@ -54,115 +56,128 @@ export async function getUsers(): Promise<GenericFetchReturn<AdminUsersReturn | 
 		links: z.number(),
 		title: z.string(),
 		createdAt: z.number(),
-	})
+	});
 
 	const resOut = z.object({
 		code: z.number(),
-		message: userSchema
+		message: userSchema,
 	});
 
 	// 1054: DB Entry/Entries Not Found
 
-	return await request(`${baseUrl}users`, "GET", resOut, {
+	return request(`${baseUrl}users`, "GET", resOut, {
 		alts: {
+			// eslint-disable-next-line @typescript-eslint/naming-convention
 			1054: "Users Not Found",
 		},
 		badResCodes: {
 			notFound: "Users Not Found",
-		}
-	})
+		},
+	});
 }
 
-export async function deleteAccount(id: string, reason: string): Promise<GenericFetchReturn<string | undefined>> {
+export async function deleteAccount(
+	id: string,
+	reason: string,
+): Promise<GenericFetchReturn<string | undefined>> {
 	if (!id || !reason) {
 		throw Error("Missing parameter(s). Need both an id and a reason");
 	}
-	
+
 	const resOut = z.object({
 		message: z.string(),
 		code: z.number(),
 	});
 
-	return await request(`${baseDel}/account?userid=${id}`, "DELETE", resOut, {
+	return request(`${baseDel}/account?userid=${id}`, "DELETE", resOut, {
 		body: {
 			reason,
 		},
 		badResCodes: {
 			notFound: "User Not Found",
 			forbidden: "You can't delete that account (forbidden)",
-			notAccepted: "Account not deleted"
-		}
+			notAccepted: "Account not deleted",
+		},
 	});
 }
 
-export async function warnUser(id: string, reason: string): Promise<GenericFetchReturn<string | undefined>> {
+export async function warnUser(
+	id: string,
+	reason: string,
+): Promise<GenericFetchReturn<string | undefined>> {
 	if (!id || !reason) {
 		throw Error("Missing parameter(s). Need both an id and a reason");
 	}
-	
+
 	const resOut = z.object({
 		message: z.string(),
 		code: z.number(),
 	});
 
-	return await request(`${baseUrl}warn/${id}`, "POST", resOut, {
+	return request(`${baseUrl}warn/${id}`, "POST", resOut, {
 		body: {
 			reason,
 		},
 		badResCodes: {
 			notFound: "User Not Found",
-			notAccepted: "Warn Failed"
-		}
+			notAccepted: "Warn Failed",
+		},
 	});
 }
 
-export async function banUser(id: string, reason: string): Promise<GenericFetchReturn<string | undefined>> {
+export async function banUser(
+	id: string,
+	reason: string,
+): Promise<GenericFetchReturn<string | undefined>> {
 	if (!id || !reason) {
 		throw Error("Missing parameter(s). Need both an id and a reason");
 	}
-	
+
 	const resOut = z.object({
 		message: z.string(),
 		code: z.number(),
 	});
 
-	return await request(`${baseUrl}ban/${id}`, "POST", resOut, {
+	return request(`${baseUrl}ban/${id}`, "POST", resOut, {
 		body: {
 			reason,
 		},
 		badResCodes: {
 			notFound: "User Not Found",
 			notAccepted: "Ban Failed",
-			forbidden: "You can't ban that account (forbidden)"
-		}
+			forbidden: "You can't ban that account (forbidden)",
+		},
 	});
 }
 
 export type Ban = {
 	id: string;
 	email: string;
-	createdAt: string;
+	createdAt: number;
 	reason: string;
-}
+};
 
-export async function unbanEmail(id: string, reason: string): Promise<GenericFetchReturn<string | undefined>> {
+export async function unbanEmail(
+	id: string,
+	reason: string,
+): Promise<GenericFetchReturn<string | undefined>> {
 	if (!id || !reason) {
 		throw Error("Missing parameter(s). Need both an id and a reason");
 	}
-	
+
 	const resOut = z.object({
 		message: z.string(),
 		code: z.number(),
 	});
 
-	return await request(`${baseUrl}ban/${id}`, "POST", resOut, {
+	return request(`${baseUrl}ban/${id}`, "POST", resOut, {
 		body: {
 			reason,
 		},
 		badResCodes: {
 			notFound: "Ban Not Found",
 			notAccepted: "Unban Failed",
-			forbidden: "You can't unban that account (forbidden)"
-		}
+			forbidden: "You can't unban that account (forbidden)",
+		},
 	});
 }
