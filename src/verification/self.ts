@@ -27,7 +27,7 @@ export async function verifySelf(
 		code: z.number(),
 	});
 
-	return request(`${baseUrl}verify/${userid}/${token}`, "POST", resOut);
+	return request(`${baseUrl}/verify/${userid}/${token}`, "POST", resOut);
 }
 
 export async function denySelf(
@@ -39,5 +39,5 @@ export async function denySelf(
 		code: z.number(),
 	});
 
-	return request(`${baseUrl}verify/${userid}/${token}`, "DELETE", resOut);
+	return request(`${baseUrl}/verify/${userid}/${token}`, "DELETE", resOut);
 }
