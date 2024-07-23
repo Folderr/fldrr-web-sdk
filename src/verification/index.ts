@@ -1,1 +1,1 @@
-export * as Self from "./verification";
+export * as Self from "./self";
