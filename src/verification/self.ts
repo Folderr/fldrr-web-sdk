@@ -6,6 +6,8 @@ import { z } from "zod";
 let { baseUrl } = consts;
 
 export function setup(url?: string) {
+	console.log(url);
+	console.log(baseUrl);
 	if (!url || url === "") {
 		// Rule is expected to be relative
 		return;
@@ -19,6 +21,7 @@ export async function verifySelf(
 	userid: string,
 	token: string,
 ): Promise<GenericFetchReturn<string | boolean | undefined>> {
+	console.log(baseUrl);
 	const resOut = z.object({
 		message: z.boolean(),
 		code: z.number(),
