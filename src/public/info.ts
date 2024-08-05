@@ -34,7 +34,7 @@ export async function getApiInfo(): Promise<
 	GenericFetchReturn<z.infer<typeof apiMessage> | string | undefined>
 > {
 	const resOut = z.object({
-		message: z.string(),
+		message: apiMessage,
 		code: z.number(),
 	});
 
