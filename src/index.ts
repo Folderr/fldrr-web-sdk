@@ -4,6 +4,7 @@ export * from "./helpers/request-handlers";
 import * as Manage from "./management/index";
 import * as Admin from "./admin/index";
 import * as Verification from "./verification/index";
+import * as Public from "./public/index";
 
 export type { Statistics, AdminUsersReturn, User } from "./admin/index";
 
@@ -15,11 +16,12 @@ export function setup(url?: string): {
 		general: typeof Admin.general;
 	};
 	Verification: { self: typeof Verification.self };
+	Public: { info: typeof Public.info };
 } {
 	// We'll just assume this is relative
 	if (url === "" || !url) {
 		// eslint-disable-next-line @typescript-eslint/naming-convention
-		return { Manage, Admin, Verification };
+		return { Manage, Admin, Verification, Public };
 	}
 
 	try {
@@ -29,8 +31,9 @@ export function setup(url?: string): {
 		Admin.user.setup(url);
 		Admin.general.setup(url);
 		Verification.self.setup(url);
+		Public.info.setup(url);
 		// eslint-disable-next-line @typescript-eslint/naming-convention
-		return { Manage, Admin, Verification };
+		return { Manage, Admin, Verification, Public };
 	} catch (error) {
 		throw Error("The URL you provided is invalid.");
 	}
