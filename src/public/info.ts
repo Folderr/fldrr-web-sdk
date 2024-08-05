@@ -16,7 +16,7 @@ export function setup(url?: string) {
 }
 
 const features = z.object({
-	signups: z.number(),
+	signups: z.number().int().lt(3),
 	emailer: z.boolean(),
 	/*  eslint-disable @typescript-eslint/naming-convention */
 	dns_mirror: z.boolean(),
