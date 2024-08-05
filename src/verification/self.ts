@@ -23,7 +23,7 @@ export async function verifySelf(
 ): Promise<GenericFetchReturn<string | boolean | undefined>> {
 	console.log(baseUrl);
 	const resOut = z.object({
-		message: z.boolean(),
+		message: z.string(),
 		code: z.number(),
 	});
 
