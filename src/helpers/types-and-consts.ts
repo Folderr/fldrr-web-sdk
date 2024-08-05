@@ -1,6 +1,7 @@
 export const httpCodes = {
 	unauthorization: 401,
 	forbidden: 403,
+	badRequest: 400,
 	notFound: 404,
 	notAccepted: 406,
 	created: 201,
@@ -14,6 +15,7 @@ export type BadResponseCodes = {
 	notAccepted?: string;
 	notFound?: string;
 	forbidden?: string;
+	badRequest?: string;
 };
 
 export type GenericFetchReturn<T = void> =

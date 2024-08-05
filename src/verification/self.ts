@@ -27,7 +27,12 @@ export async function verifySelf(
 		code: z.number(),
 	});
 
-	return request(`${baseUrl}/verify/${userid}/${token}`, "POST", resOut);
+	return request(`${baseUrl}/verify/${userid}/${token}`, "POST", resOut, {
+		badResCodes: {
+			badRequest: "Invalid ID or Verification Token",
+			notFound: "User not found or invalid verification details",
+		},
+	});
 }
 
 export async function denySelf(

@@ -60,6 +60,15 @@ export async function badResponseHandler(
 		return check;
 	}
 
+	if (response.status === httpCodes.badRequest) {
+		return {
+			error: codeMessage.badRequest ?? "Malformed / Invalid Request",
+			success: false,
+			response,
+			output: undefined,
+		};
+	}
+
 	if (response.status === httpCodes.notFound) {
 		return {
 			error: codeMessage.notFound ?? "Endpoint Not Found",
