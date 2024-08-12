@@ -42,11 +42,11 @@ export type AdminUsersReturn = {
 	id: string;
 	email: string;
 	username: string;
-	createdAt: number;
+	created: number;
 };
 
 export async function getUsers(): Promise<
-	GenericFetchReturn<AdminUsersReturn | string | undefined>
+	GenericFetchReturn<AdminUsersReturn[] | string | undefined>
 > {
 	const userSchema = z.object({
 		id: z.string(),
@@ -55,12 +55,12 @@ export async function getUsers(): Promise<
 		files: z.number(),
 		links: z.number(),
 		title: z.string(),
-		createdAt: z.number(),
+		created: z.number(),
 	});
 
 	const resOut = z.object({
 		code: z.number(),
-		message: userSchema,
+		message: z.array(userSchema),
 	});
 
 	// 1054: DB Entry/Entries Not Found
