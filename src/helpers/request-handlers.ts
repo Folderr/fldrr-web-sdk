@@ -28,6 +28,7 @@ export async function request<Tresponse, Tbody>(
 		badResCodes?: BadResponseCodes;
 		alts?: Record<number, string>;
 		okCodes?: number[];
+		query?: Record<string, string>;
 	},
 ): Promise<GenericFetchReturn<Tresponse | string | undefined>> {
 	// Verify the shape of the response schema. Must match "{ code: number, message: unknown }"
@@ -37,6 +38,11 @@ export async function request<Tresponse, Tbody>(
 		headers["content-type"] = "application/json";
 	} else if (options?.body && typeof headers === "undefined") {
 		headers = { "content-type": "application/json" };
+	}
+
+	if (options?.query) {
+		const query = `?${new URLSearchParams(options.query).toString()}`;
+		url += query;
 	}
 
 	try {
