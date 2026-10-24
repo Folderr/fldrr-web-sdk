@@ -179,7 +179,10 @@
 						"strictCase": false,
 						"requireAscii": false,
 						"conventions": [
-							{ "selector": { "kind": "typeLike" }, "formats": ["PascalCase"] }
+							{
+								"selector": { "kind": "typeLike" },
+								"formats": ["PascalCase"]
+							}
 						]
 					}
 				},
@@ -283,7 +286,9 @@
 	"overrides": [
 		{
 			"includes": ["**/*.d.ts"],
-			"linter": { "rules": { "correctness": { "noUnusedVariables": "off" } } }
+			"linter": {
+				"rules": { "correctness": { "noUnusedVariables": "off" } }
+			}
 		},
 		{ "includes": ["**/*.test-d.ts"], "linter": { "rules": {} } },
 		{

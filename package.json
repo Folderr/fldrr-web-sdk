@@ -1,31 +1,32 @@
 {
-  "name": "fldrr-web-sdk",
-  "version": "1.0.0",
-  "description": "A lieghtweight TS Web SDK for Folderr",
-  "main": "dist/index.js",
-  "types": "src/index.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "prepare": "npm run build",
-    "lint": "biome check src/",
-    "lint:fix": "biome check --fix src/"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Folderr/fldrr-web-sdk.git"
-  },
-  "author": "Folderr",
-  "license": "AGPL-3.0-or-later",
-  "bugs": {
-    "url": "https://github.com/Folderr/fldrr-web-sdk/issues"
-  },
-  "homepage": "https://github.com/Folderr/fldrr-web-sdk#readme",
-  "dependencies": {
-    "zod": "^4.6.7"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "^2.6.3",
-    "typescript": "^5.5.4"
-  }
+	"name": "fldrr-web-sdk",
+	"version": "1.0.0",
+	"description": "A lieghtweight TS Web SDK for Folderr",
+	"main": "dist/index.js",
+	"types": "src/index.ts",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build": "tsc",
+		"typecheck": "tsc --noEmit",
+		"prepare": "npm run build",
+		"lint": "biome check src/",
+		"lint:fix": "biome check --fix src/"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Folderr/fldrr-web-sdk.git"
+	},
+	"author": "Folderr",
+	"license": "AGPL-3.0-or-later",
+	"bugs": {
+		"url": "https://github.com/Folderr/fldrr-web-sdk/issues"
+	},
+	"homepage": "https://github.com/Folderr/fldrr-web-sdk#readme",
+	"dependencies": {
+		"zod": "^4.6.7"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.6.3",
+		"typescript": "^5.5.4"
+	}
 }
