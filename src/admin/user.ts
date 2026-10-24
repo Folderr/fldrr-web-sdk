@@ -15,11 +15,15 @@ export function setup(url?: string) {
 	if (!url || url === "") {
 		// Rule is expected to be relative
 		return;
-	}
+  }
+
+  if (url.endsWith("/")) {
+    url = url.slice(0, url.length - 1)
+  }
 
 	const _ = new URL(url);
-	baseUrl = url + baseUrl;
-	baseDel = url + baseDel;
+	baseUrl = url.slice(0, url.length - 1) + baseUrl;
+	baseDel = url.slice(0, url.length - 1) + baseDel;
 }
 
 export type User = {
@@ -170,7 +174,7 @@ export async function unbanEmail(
 		code: z.number(),
 	});
 
-	return request(`${baseUrl}/ban/${id}`, "POST", resOut, {
+	return request(`${baseUrl}/ban/${id}`, "DELETE", resOut, {
 		body: {
 			reason,
 		},
