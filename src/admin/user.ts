@@ -25,7 +25,7 @@ export function setup(url?: string) {
 	baseDel = url.slice(0, url.length - 1) + baseDel;
 }
 
-export type User = {
+export interface User {
 	id: string;
 	email: string;
 	username: string;
@@ -36,9 +36,9 @@ export type User = {
 	markedForDeletion: boolean;
 	admin: boolean;
 	owner: boolean;
-};
+}
 
-export type AdminUsersReturn = {
+export interface AdminUsersReturn {
 	title: string;
 	links: number;
 	files: number;
@@ -46,7 +46,7 @@ export type AdminUsersReturn = {
 	email: string;
 	username: string;
 	created: number;
-};
+}
 
 export async function getUsers(): Promise<
 	GenericFetchReturn<AdminUsersReturn[] | string | undefined>
@@ -84,7 +84,7 @@ export async function deleteAccount(
 	reason: string,
 ): Promise<GenericFetchReturn<string | undefined>> {
 	if (!id || !reason) {
-		throw Error("Missing parameter(s). Need both an id and a reason");
+		throw new Error("Missing parameter(s). Need both an id and a reason");
 	}
 
 	const resOut = z.object({
@@ -109,7 +109,7 @@ export async function warnUser(
 	reason: string,
 ): Promise<GenericFetchReturn<string | undefined>> {
 	if (!id || !reason) {
-		throw Error("Missing parameter(s). Need both an id and a reason");
+		throw new Error("Missing parameter(s). Need both an id and a reason");
 	}
 
 	const resOut = z.object({
@@ -133,7 +133,7 @@ export async function banUser(
 	reason: string,
 ): Promise<GenericFetchReturn<string | undefined>> {
 	if (!id || !reason) {
-		throw Error("Missing parameter(s). Need both an id and a reason");
+		throw new Error("Missing parameter(s). Need both an id and a reason");
 	}
 
 	const resOut = z.object({
@@ -153,19 +153,19 @@ export async function banUser(
 	});
 }
 
-export type Ban = {
+export interface Ban {
 	id: string;
 	email: string;
 	createdAt: number;
 	reason: string;
-};
+}
 
 export async function unbanEmail(
 	id: string,
 	reason: string,
 ): Promise<GenericFetchReturn<string | undefined>> {
 	if (!id || !reason) {
-		throw Error("Missing parameter(s). Need both an id and a reason");
+		throw new Error("Missing parameter(s). Need both an id and a reason");
 	}
 
 	const resOut = z.object({

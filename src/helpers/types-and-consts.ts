@@ -11,12 +11,12 @@ export const httpCodes = {
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const BASE_URL = "/api/";
 
-export type BadResponseCodes = {
+export interface BadResponseCodes {
 	notAccepted?: string;
 	notFound?: string;
 	forbidden?: string;
 	badRequest?: string;
-};
+}
 
 export type GenericFetchReturn<T = void> =
 	| {

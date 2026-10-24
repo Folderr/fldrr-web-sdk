@@ -28,7 +28,9 @@ export function setup(url: string) {
 export async function promoteUserToAdmin(
 	id: string,
 ): Promise<constants.GenericFetchReturn<string | undefined>> {
-	if (!id) throw new Error('Missing parameter "id"');
+	if (!id) {
+		throw new Error('Missing parameter "id"');
+	}
 	const resOut = z.object({
 		message: z.string(),
 		code: z.number(),
@@ -52,10 +54,15 @@ export async function demoteAdmin(
 ): Promise<constants.GenericFetchReturn<string | undefined>> {
 	// For safety's sake, we're a library. If these don't exist, we'll error.
 	const missing = [];
-	if (!id) missing.push("id");
-	if (!reason) missing.push("reason");
-	if (missing.length > 0)
+	if (!id) {
+		missing.push("id");
+	}
+	if (!reason) {
+		missing.push("reason");
+	}
+	if (missing.length > 0) {
 		throw new Error(`Missing parameters ${missing.join(", ")}`);
+	}
 
 	const resOut = z.object({
 		message: z.string(),

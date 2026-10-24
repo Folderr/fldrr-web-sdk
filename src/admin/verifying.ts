@@ -7,12 +7,12 @@ import { request } from "../helpers/request-handlers";
 import { type GenericFetchReturn } from "../helpers/types-and-consts";
 import * as consts from "./consts";
 
-export type VerifyingUser = {
+export interface VerifyingUser {
 	id: string;
 	username: string;
 	email: string;
 	createdAt: number;
-};
+}
 
 let { baseUrl } = consts;
 
@@ -51,7 +51,9 @@ export async function getVerfiyingUsers(): Promise<
 export async function denyAccount(
 	id: string,
 ): Promise<GenericFetchReturn<string | undefined>> {
-	if (!id) throw new Error("Missing required parameter: id");
+	if (!id) {
+		throw new Error("Missing required parameter: id");
+	}
 	const resOut = z.object({
 		message: z.string(),
 		code: z.number(),
@@ -67,7 +69,9 @@ export async function denyAccount(
 export async function acceptAccount(
 	id: string,
 ): Promise<GenericFetchReturn<string | undefined>> {
-	if (!id) throw new Error("Missing required parameter: id");
+	if (!id) {
+		throw new Error("Missing required parameter: id");
+	}
 	const resOut = z.object({
 		message: z.string(),
 		code: z.number(),

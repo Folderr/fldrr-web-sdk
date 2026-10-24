@@ -20,13 +20,13 @@ export function setup(url?: string) {
 	baseUrl = url + baseUrl;
 }
 
-export type Statistics = {
+export interface Statistics {
 	users: number;
 	links: number;
 	files: number;
 	bannedEmails: number;
 	whitelistedEmails: number;
-};
+}
 
 export async function getStats(): Promise<
 	GenericFetchReturn<Statistics | string | undefined>
