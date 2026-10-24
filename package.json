@@ -8,8 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "prepare": "npm run build",
-    "lint": "biome check src/ --ext .ts",
-    "lint:fix": "biome check --fix src/ --ext .ts --fix"
+    "lint": "biome check src/",
+    "lint:fix": "biome check --fix src/"
   },
   "repository": {
     "type": "git",
