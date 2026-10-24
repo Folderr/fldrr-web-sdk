@@ -1,20 +1,22 @@
 import { z } from "zod";
+import { request } from "../helpers/request-handlers";
 import type * as constants from "../helpers/types-and-consts";
 import * as localConstants from "./consts";
-import { request } from "../helpers/request-handlers";
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 let { BASE_URL } = localConstants;
 
 export function setup(url: string) {
-	if (url === "") return;
+	if (url === "") {
+		return;
+	}
 
 	// Let's just check if this is a url
 	try {
 		const _ = new URL(url);
 		BASE_URL = url + localConstants.BASE_URL;
 	} catch (error) {
-		throw Error("The URL you provided is invalid.");
+		throw new Error("The URL you provided is invalid.", { cause: error });
 	}
 }
 

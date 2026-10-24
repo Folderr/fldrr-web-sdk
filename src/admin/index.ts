@@ -1,27 +1,25 @@
 import {
-	setup as verifyingSetup,
-	getVerfiyingUsers,
-	denyAccount,
-	acceptAccount,
-} from "./verifying";
-
-import {
-	setup as genSetup,
 	type Statistics as GenStats,
-	getStats,
+	setup as genSetup,
 	getBans,
+	getStats,
 } from "./general";
-
 import {
-	setup as userSetup,
-	getUsers,
-	deleteAccount,
-	warnUser,
-	banUser,
-	unbanEmail,
-	type User as UserType,
 	type AdminUsersReturn as AdminUsersReturnType,
+	banUser,
+	deleteAccount,
+	getUsers,
+	type User as UserType,
+	unbanEmail,
+	setup as userSetup,
+	warnUser,
 } from "./user";
+import {
+	acceptAccount,
+	denyAccount,
+	getVerfiyingUsers,
+	setup as verifyingSetup,
+} from "./verifying";
 
 export const verifying = {
 	setup: verifyingSetup,

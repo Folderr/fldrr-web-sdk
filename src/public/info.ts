@@ -1,7 +1,7 @@
+import { z } from "zod";
+import { request } from "../helpers/request-handlers";
 import { type GenericFetchReturn } from "../helpers/types-and-consts";
 import * as consts from "./consts";
-import { request } from "../helpers/request-handlers";
-import { z } from "zod";
 
 let { baseUrl } = consts;
 
@@ -18,14 +18,14 @@ export function setup(url?: string) {
 const features = z.object({
 	signups: z.number().int().lt(3),
 	emailer: z.boolean(),
-	/*  eslint-disable @typescript-eslint/naming-convention */
+	// biome-ignore-start lint/style/useNamingConvention: From backend, based on http best practices
 	dns_mirror: z.boolean(),
 });
 const apiMessage = z.object({
 	version: z.string(),
 	node_version: z.string(),
 	online_since: z.number(),
-	/*  eslint-enable @typescript-eslint/naming-convention */
+	// biome-ignore-end lint/style/useNamingConvention: From backend
 	message: z.string(),
 	features,
 });

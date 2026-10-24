@@ -1,9 +1,9 @@
 import { ZodSchema, type z } from "zod";
+import { badResponseHandler, genericCatch } from "./handlers";
 import {
 	type BadResponseCodes,
 	type GenericFetchReturn,
 } from "./types-and-consts";
-import { badResponseHandler, genericCatch } from "./handlers";
 
 /**
  *

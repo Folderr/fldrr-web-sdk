@@ -3,9 +3,9 @@
  */
 
 import { z } from "zod";
+import { request } from "../helpers/request-handlers";
 import { type GenericFetchReturn } from "../helpers/types-and-consts";
 import * as consts from "./consts";
-import { request } from "../helpers/request-handlers";
 
 export type VerifyingUser = {
 	id: string;

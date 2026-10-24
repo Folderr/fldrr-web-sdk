@@ -1,4 +1,4 @@
-import { getUploadList, getLinkList, setup as listsSetup } from "./lists";
+import { getLinkList, getUploadList, setup as listsSetup } from "./lists";
 
 export const lists = {
 	getUploadList,

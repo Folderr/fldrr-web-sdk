@@ -3,10 +3,9 @@
  */
 
 import { z } from "zod";
-import { type GenericFetchReturn } from "../helpers/types-and-consts";
-import * as consts from "./consts";
 import { request } from "../helpers/request-handlers";
-import { BASE_URL } from "../helpers/types-and-consts";
+import { BASE_URL, type GenericFetchReturn } from "../helpers/types-and-consts";
+import * as consts from "./consts";
 
 let { baseUrl } = consts;
 let baseDel = BASE_URL;
@@ -15,11 +14,11 @@ export function setup(url?: string) {
 	if (!url || url === "") {
 		// Rule is expected to be relative
 		return;
-  }
+	}
 
-  if (url.endsWith("/")) {
-    url = url.slice(0, url.length - 1)
-  }
+	if (url.endsWith("/")) {
+		url = url.slice(0, url.length - 1);
+	}
 
 	const _ = new URL(url);
 	baseUrl = url.slice(0, url.length - 1) + baseUrl;

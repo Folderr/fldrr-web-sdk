@@ -1,6 +1,6 @@
-import { BASE_URL } from "./consts";
 import { z } from "zod";
 import { request } from "../helpers/request-handlers";
+import { BASE_URL } from "./consts";
 
 let baseUrl = BASE_URL;
 export function setup(url?: string) {
@@ -82,7 +82,7 @@ const linkSchema = z.object({
 	id: z.string(),
 	link: z.string(),
 	created: z.string(),
-	// eslint-disable-next-line @typescript-eslint/naming-convention
+	// biome-ignore lint/style/useNamingConvention: Using web & backend naming convention
 	points_to: z.string(),
 });
 
