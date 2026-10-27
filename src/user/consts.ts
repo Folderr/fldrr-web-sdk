@@ -1,2 +1,3 @@
-// We just want to use the normal base url
-export { BASE_URL } from "../helpers/types-and-consts";
+import { BASE_URL } from "../helpers/types-and-consts";
+
+export const baseUrl = String(BASE_URL.slice(0, BASE_URL.length - 1));

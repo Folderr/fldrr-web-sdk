@@ -6,13 +6,17 @@ import * as consts from "./consts";
 let { baseUrl } = consts;
 
 export function setup(url?: string) {
-	if (!url || url === "") {
+	if (!url) {
 		// Rule is expected to be relative
 		return;
 	}
 
+	if (url.endsWith("/")) {
+		url = url.slice(0, url.length - 1);
+	}
+
 	const _ = new URL(url);
-	baseUrl = url + baseUrl;
+	baseUrl = url + consts.baseUrl;
 }
 
 const features = z.object({

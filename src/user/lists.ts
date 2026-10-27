@@ -1,16 +1,20 @@
 import { z } from "zod";
 import { request } from "../helpers/request-handlers";
-import { BASE_URL } from "./consts";
+import * as consts from "./consts";
 
-let baseUrl = BASE_URL;
+let { baseUrl } = consts;
 export function setup(url?: string) {
-	if (!url || url === "") {
+	if (!url) {
 		// Rule is expected to be relative
 		return;
 	}
 
+	if (url.endsWith("/")) {
+		url = url.slice(0, url.length - 1);
+	}
+
 	const _ = new URL(url);
-	baseUrl = url + baseUrl;
+	baseUrl = url + consts.baseUrl;
 }
 
 type ListQuery =
@@ -60,7 +64,7 @@ export async function getUploadList(
 			query.after = options.after.toISOString();
 		}
 
-		return request(baseUrl + "/links", "GET", uploadListOutput, {
+		return request(baseUrl + "/files", "GET", uploadListOutput, {
 			query,
 		});
 	}
@@ -72,7 +76,7 @@ export async function getUploadList(
 			after: options.after.toISOString(),
 		};
 
-		return request(baseUrl + "/links", "GET", uploadListOutput, {
+		return request(baseUrl + "/files", "GET", uploadListOutput, {
 			query,
 		});
 	}
@@ -110,7 +114,7 @@ export async function getLinkList(
 			query.after = options.after.toISOString();
 		}
 
-		return request(BASE_URL + "/links", "GET", linkListOutput, {
+		return request(baseUrl + "/links", "GET", linkListOutput, {
 			query,
 		});
 	}
@@ -122,7 +126,7 @@ export async function getLinkList(
 			after: options.after.toISOString(),
 		};
 
-		return request(BASE_URL + "/links", "GET", linkListOutput, {
+		return request(baseUrl + "/links", "GET", linkListOutput, {
 			query,
 		});
 	}

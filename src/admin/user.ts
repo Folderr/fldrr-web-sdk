@@ -11,7 +11,7 @@ let { baseUrl } = consts;
 let baseDel = BASE_URL;
 
 export function setup(url?: string) {
-	if (!url || url === "") {
+	if (!url) {
 		// Rule is expected to be relative
 		return;
 	}
@@ -21,8 +21,8 @@ export function setup(url?: string) {
 	}
 
 	const _ = new URL(url);
-	baseUrl = url + baseUrl;
-	baseDel = url + baseDel;
+	baseUrl = url + consts.baseUrl;
+	baseDel = url + BASE_URL;
 }
 
 export interface User {
