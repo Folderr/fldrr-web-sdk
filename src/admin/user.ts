@@ -31,6 +31,7 @@ export interface User {
 	username: string;
 	files: number;
 	links: number;
+	/** Unix time in milliseconds */
 	createdAt: number;
 	cURLs: string[];
 	markedForDeletion: boolean;
@@ -45,7 +46,8 @@ export interface AdminUsersReturn {
 	id: string;
 	email: string;
 	username: string;
-	created: number;
+	/** Unix time in milliseconds */
+	createdAt: number;
 }
 
 export async function getUsers(): Promise<
@@ -58,7 +60,7 @@ export async function getUsers(): Promise<
 		files: z.number(),
 		links: z.number(),
 		title: z.string(),
-		created: z.number(),
+		createdAt: z.number(),
 	});
 
 	const resOut = z.object({
@@ -156,6 +158,7 @@ export async function banUser(
 export interface Ban {
 	id: string;
 	email: string;
+	/** Unix time in milliseconds */
 	createdAt: number;
 	reason: string;
 }

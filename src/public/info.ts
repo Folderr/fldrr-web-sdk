@@ -28,6 +28,7 @@ const features = z.object({
 const apiMessage = z.object({
 	version: z.string(),
 	node_version: z.string(),
+	/** Unix time in milliseconds */
 	online_since: z.number(),
 	// biome-ignore-end lint/style/useNamingConvention: From backend
 	message: z.string(),

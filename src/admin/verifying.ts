@@ -11,6 +11,7 @@ export interface VerifyingUser {
 	id: string;
 	username: string;
 	email: string;
+	/** Unix time in milliseconds */
 	createdAt: number;
 }
 

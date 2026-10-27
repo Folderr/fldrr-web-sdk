@@ -34,7 +34,8 @@ type ListQuery =
 const uploadSchema = z.object({
 	id: z.string(),
 	type: z.string(),
-	created: z.string(),
+	/** Unix time in milliseconds */
+	createdAt: z.number(),
 	link: z.string(),
 });
 
@@ -85,7 +86,8 @@ export async function getUploadList(
 const linkSchema = z.object({
 	id: z.string(),
 	link: z.string(),
-	created: z.string(),
+	/** Unix time in milliseconds */
+	createdAt: z.number(),
 	// biome-ignore lint/style/useNamingConvention: Using web & backend naming convention
 	points_to: z.string(),
 });
