@@ -7,24 +7,15 @@ import {
 function checkAuthenticationError(
 	response: Response,
 ): GenericFetchReturn<undefined> | undefined {
-	switch (response.status) {
-		case httpCodes.forbidden:
-			return {
-				error: "Access Denied",
-				output: undefined,
-				response,
-				success: false,
-			};
-		case httpCodes.unauthorization:
-			return {
-				error: "Authorization Failed",
-				output: undefined,
-				response,
-				success: false,
-			};
-		default:
-			return undefined;
+	if (response.status === httpCodes.unauthorization) {
+		return {
+			error: "Authorization Failed",
+			output: undefined,
+			response,
+			success: false,
+		};
 	}
+	return undefined;
 }
 
 export function genericCatch<T>(error: unknown): GenericFetchReturn<T> {
@@ -60,42 +51,73 @@ export async function badResponseHandler(
 		return check;
 	}
 
-	if (response.status === httpCodes.badRequest) {
-		return {
-			error: codeMessage.badRequest ?? "Malformed / Invalid Request",
-			success: false,
-			response,
-			output: undefined,
-		};
+	let json: { code: number; message: string } | undefined;
+	try {
+		json = await response.clone().json();
+		if (!json?.code || !json?.message) {
+			json = undefined;
+		}
+	} catch {
+		json = undefined; // just in case
 	}
 
-	if (response.status === httpCodes.notFound) {
-		return {
-			error: codeMessage.notFound ?? "Endpoint Not Found",
-			success: false,
-			response,
-			output: undefined,
-		};
+	switch (
+		response.status // Use a switch here as its typically faster, at least in compiled languages. Good practice.
+	) {
+		case httpCodes.badRequest:
+			return {
+				error:
+					json?.message ??
+					codeMessage.badRequest ??
+					"Malformed / Invalid Request",
+				success: false,
+				response,
+				output: undefined,
+			};
+		case httpCodes.notFound:
+			return {
+				error: json?.message ?? codeMessage.notFound ?? "Not found",
+				success: false,
+				response,
+				output: undefined,
+			};
+		case httpCodes.forbidden:
+			return {
+				error:
+					json?.message ??
+					codeMessage.forbidden ??
+					"You are not authorized to perform that action",
+				success: false,
+				output: undefined,
+				response,
+			};
+		case httpCodes.notAccepted:
+			return {
+				error:
+					json?.message ?? codeMessage.notAccepted ?? "Not Accepted",
+				success: false,
+				response,
+				output: undefined,
+			};
+		case httpCodes.internalError:
+			return {
+				error:
+					json?.message ??
+					codeMessage.internalError ??
+					"An internal server error occurred",
+				success: false,
+				output: undefined,
+				response,
+			};
+		default:
 	}
 
-	if (response.status === httpCodes.notAccepted) {
-		return {
-			error: codeMessage.notAccepted ?? "Not Accepted",
-			success: false,
-			response,
-			output: undefined,
-		};
-	}
-
-	if (response.status === httpCodes.forbidden) {
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-		const json: { code: number; message: string } | undefined =
-			await response.json();
+	if (!response.ok) {
 		return {
 			error:
 				json?.message ??
-				codeMessage.forbidden ??
-				"You are not authorized to perform that action",
+				codeMessage.unexpected ??
+				"An unexpected response was given",
 			success: false,
 			output: undefined,
 			response,

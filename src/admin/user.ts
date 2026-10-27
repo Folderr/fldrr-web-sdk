@@ -21,8 +21,8 @@ export function setup(url?: string) {
 	}
 
 	const _ = new URL(url);
-	baseUrl = url.slice(0, url.length - 1) + baseUrl;
-	baseDel = url.slice(0, url.length - 1) + baseDel;
+	baseUrl = url + baseUrl;
+	baseDel = url + baseDel;
 }
 
 export interface User {
@@ -92,7 +92,7 @@ export async function deleteAccount(
 		code: z.number(),
 	});
 
-	return request(`${baseDel}/account?userid=${id}`, "DELETE", resOut, {
+	return request(`${baseDel}account?userid=${id}`, "DELETE", resOut, {
 		body: {
 			reason,
 		},
@@ -161,11 +161,10 @@ export interface Ban {
 }
 
 export async function unbanEmail(
-	id: string,
-	reason: string,
+	email: string,
 ): Promise<GenericFetchReturn<string | undefined>> {
-	if (!id || !reason) {
-		throw new Error("Missing parameter(s). Need both an id and a reason");
+	if (!email) {
+		throw new Error("Missing required parameter: email");
 	}
 
 	const resOut = z.object({
@@ -173,9 +172,9 @@ export async function unbanEmail(
 		code: z.number(),
 	});
 
-	return request(`${baseUrl}/ban/${id}`, "DELETE", resOut, {
+	return request(`${baseUrl}/ban`, "DELETE", resOut, {
 		body: {
-			reason,
+			email,
 		},
 		badResCodes: {
 			notFound: "Ban Not Found",

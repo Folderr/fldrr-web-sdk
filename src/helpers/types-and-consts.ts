@@ -1,4 +1,5 @@
 export const httpCodes = {
+	internalError: 500,
 	unauthorization: 401,
 	forbidden: 403,
 	badRequest: 400,
@@ -16,6 +17,8 @@ export interface BadResponseCodes {
 	notFound?: string;
 	forbidden?: string;
 	badRequest?: string;
+	internalError?: string;
+	unexpected?: string;
 }
 
 export type GenericFetchReturn<T = void> =

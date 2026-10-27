@@ -63,6 +63,9 @@ export async function denyAccount(
 		body: {
 			id,
 		},
+		badResCodes: {
+			notFound: "Account not found",
+		},
 	});
 }
 
@@ -80,6 +83,9 @@ export async function acceptAccount(
 	return request<string, string>(`${baseUrl}/verify`, "POST", resOut, {
 		body: {
 			id,
+		},
+		badResCodes: {
+			notFound: "Account not found",
 		},
 	});
 }

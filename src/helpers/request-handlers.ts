@@ -14,7 +14,7 @@ import {
  * @param {ZodSchema} [options.body] JSON for the request. Set's Content-Type to application/json.
  * @param {Record<string, string>} [options.header] any headers you want to supply
  * @param {BadResponseCodes} [options.badResCodes] An object of HTTP error codes and responses.
- * @param {Record<number, string>} [options.alts] An object of numbers and their response.
+ * @param {Record<number, string>} [options.alts] An object of Folderr specific error codes and their response.
  * @param {number[]} [options.okCodes] A set of htp codes to be considered "OK"
  * @returns {Promise<GenericFetchReturn<any>>}
  */
